@@ -1,7 +1,6 @@
 package com.gs.mina.basic;
 
-import com.gs.mina.Constants;
-import org.apache.mina.core.filterchain.DefaultIoFilterChain;
+import com.gs.Constants;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;

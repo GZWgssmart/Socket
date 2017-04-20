@@ -1,6 +1,6 @@
 package com.gs.mina.basic;
 
-import com.gs.mina.Constants;
+import com.gs.Constants;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -1,4 +1,4 @@
-package com.gs.mina;
+package com.gs;
 
 /**
  * Created by Wang Genshen on 2017-04-18.

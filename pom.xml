@@ -35,6 +35,7 @@
 
     <properties>
         <mina-version>2.0.16</mina-version>
+        <netty-version>4.1.9.Final</netty-version>
         <junit-version>4.12</junit-version>
     </properties>
 
@@ -50,6 +51,12 @@
             <groupId>org.apache.mina</groupId>
             <artifactId>mina-filter-compression</artifactId>
             <version>${mina-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty-version}</version>
         </dependency>
 
         <dependency>
