@@ -33,6 +33,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println("读取数据");
         System.out.println("data: " + msg.toString());
+        ctx.writeAndFlush("hello client");
     }
 
     @Override
@@ -42,7 +43,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        System.out.println("触发用户事件： " + evt.toString());
     }
 
     @Override

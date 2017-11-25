@@ -1,4 +1,4 @@
-package com.gs.mina.basic;
+package com.gs.mina;
 
 import com.gs.Constants;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;

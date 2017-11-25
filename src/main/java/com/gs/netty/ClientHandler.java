@@ -33,15 +33,6 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println("读取数据");
         System.out.println("data: " + msg.toString());
-        ByteBuf in = (ByteBuf) msg;
-        try {
-            while (in.isReadable()) {
-                System.out.print((char) in.readByte());
-                System.out.flush();
-            }
-        } finally {
-            ReferenceCountUtil.release(msg);
-        }
     }
 
     @Override
