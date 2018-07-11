@@ -1,6 +1,9 @@
 package com.gs.netty;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.EmptyByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
@@ -32,13 +35,22 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println("读取数据");
-        System.out.println("data: " + msg.toString());
-        ctx.writeAndFlush("hello client");
+        String m = null;
+        if (msg instanceof String) {
+            m = (String) msg;
+            ctx.writeAndFlush("hello client");
+        } else {
+            m = new String((byte[]) msg);
+            ctx.writeAndFlush("hello client".getBytes());
+        }
+        System.out.println("data: " + m);
+
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         System.out.println("读取数据完成");
+        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
     }
 
     @Override
@@ -53,5 +65,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         System.out.println("出现异常: " + cause.getMessage());
+        ctx.close();
     }
 }

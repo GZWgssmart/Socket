@@ -25,7 +25,7 @@ public class ServerHandler extends IoHandlerAdapter {
 
     @Override
     public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
-        System.out.println("连接空闲" + session.getIdleCount(status) + ", 状态： " + status);
+        System.out.println(session.getId() + "连接空闲" + session.getIdleCount(status) + ", 状态： " + status);
     }
 
     @Override

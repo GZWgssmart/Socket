@@ -32,7 +32,13 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println("读取数据");
-        System.out.println("data: " + msg.toString());
+        String m = null;
+        if (msg instanceof String) {
+            m = (String) msg;
+        } else {
+            m = new String((byte[]) msg);
+        }
+        System.out.println("data: " + m);
     }
 
     @Override
@@ -53,5 +59,6 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         System.out.println("出现异常: " + cause.getMessage());
+        ctx.close();
     }
 }

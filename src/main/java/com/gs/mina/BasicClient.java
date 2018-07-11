@@ -5,6 +5,7 @@ import com.gs.Constants;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
@@ -14,13 +15,13 @@ public class BasicClient {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Socket socket = new Socket(Constants.IP, Constants.PORT);
-        OutputStream out = socket.getOutputStream();
-        out.write("hello".getBytes());
-        out.flush();
+        PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
+        printWriter.write("hello");
+        printWriter.flush();
         InputStream in = socket.getInputStream();
         byte[] bytes = new byte[1024];
-        in.read(bytes);
-        System.out.println(new String(bytes, "utf-8"));
+        int length = in.read(bytes);
+        System.out.println(new String(bytes, 0, length, "utf-8"));
         Thread.sleep(100000);
     }
 }

@@ -18,20 +18,28 @@ public class Server {
 
     public void init() {
         try {
+            // 打开选择器
             Selector selector = Selector.open();
+            // 建立服务器通道
             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+            // 构建服务器地址
             InetSocketAddress isa = new InetSocketAddress(Constants.PORT);
+            // 服务器通道绑定地址
             serverSocketChannel.socket().bind(isa);
+            // 服务器通道设置为非阻塞式
             serverSocketChannel.configureBlocking(false);
+            // 注册选择器到通道，可连接
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
             while (selector.select() > 0) {
                 Iterator<SelectionKey> selectionKeyIterator = selector.selectedKeys().iterator();
                 while (selectionKeyIterator.hasNext()) {
                     SelectionKey selectionKey = selectionKeyIterator.next();
                     selectionKeyIterator.remove();
+                    // 如果通道可连接
                     if (selectionKey.isAcceptable()) {
                         connect(selector, serverSocketChannel);
                     }
+                    // 如果通道可读
                     if (selectionKey.isReadable()) {
                         read(selectionKey);
                     }
@@ -57,8 +65,10 @@ public class Server {
                 buff.flip();
                 content += charset.decode(buff);
             }
-            System.out.println("读取的数据：" + content);
-            write(socketChannel, content);
+            if (content != "") {
+                System.out.println("读取的数据：" + content);
+                write(socketChannel, content);
+            }
             selectionKey.interestOps(SelectionKey.OP_READ);
         } catch (IOException io) {
             selectionKey.cancel();

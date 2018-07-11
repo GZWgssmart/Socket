@@ -14,7 +14,7 @@ import java.util.Random;
 public class BasicClient {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 2000; i++) {
             Socket socket = new Socket(Constants.IP, Constants.PORT);
             new Thread(new WriteThread(socket, i)).start();
         }
@@ -36,8 +36,8 @@ public class BasicClient {
                     out.flush();
                     InputStream in = socket.getInputStream();
                     byte[] bytes = new byte[1024];
-                    in.read(bytes);
-                    System.out.println("socket" + num + "=====" + new String(bytes, "utf-8"));
+                    int length = in.read(bytes);
+                    System.out.println("socket" + num + "=====" + new String(bytes, 0, length, "utf-8"));
                     System.out.println("=========================");
                     Thread.sleep(5000);
                 }
